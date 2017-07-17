@@ -9,5 +9,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<context:component-scan base-package="controllers"/>
+	<bean id="dao" class="data.AlbumBuilderDAO" />
 
 </beans>

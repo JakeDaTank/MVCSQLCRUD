@@ -8,6 +8,6 @@
     <title>View</title>
   </head>
   <body>
-    <p>The result is: ${result}.0</p>
+    <p>The result is: ${result}</p>
   </body>
 </html>
