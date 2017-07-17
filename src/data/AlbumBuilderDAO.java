@@ -23,6 +23,18 @@ public class AlbumBuilderDAO {
 
 
 
+	public List<Album> getAlbumList() {
+		return albumList;
+	}
+
+
+
+	public void setAlbumList(List<Album> albumList) {
+		this.albumList = albumList;
+	}
+
+
+
 	@PostConstruct
 	public void reader() {	
 		BufferedReader bufIn = null;
