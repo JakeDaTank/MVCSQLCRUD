@@ -1,12 +1,18 @@
 package data;
 
 public class Song {
-	String title;
-	public Song() {
-		
+	String title, artistTitle;
+	public Song() {		
 	}
-	public Song(String title){
+	public Song(String title, String artistTitle){
 		this.title = title;
+		this.artistTitle = artistTitle;
+	}
+	public String getArtistTitle() {
+		return artistTitle;
+	}
+	public void setArtistTitle(String artistTitle) {
+		this.artistTitle = artistTitle;
 	}
 	public String getTitle() {
 		return title;

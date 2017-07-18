@@ -10,14 +10,14 @@
 <body>
 	<c:choose>
 		<c:when test="${! empty song}">
-			The most recent song added was:
+			This song was removed:
 			<ul>
 				<li>${song.artistTitle}</li>
 				<li>${song.title}</li>
 			</ul>
 		</c:when>
 		<c:otherwise>
-			<p>No song found</p>
+			<p>No was found to remove</p>
 		</c:otherwise>
 	</c:choose>
 	<br>

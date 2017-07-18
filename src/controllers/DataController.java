@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,32 +17,74 @@ import data.*;
 public class DataController {
 
 	@Autowired
-	AlbumBuilderDAO dao;
+	private AlbumDAO dao;
 
-	@RequestMapping("GetAlbum.do")
-	public ModelAndView getAlbum(@RequestParam("album") String InputAlbumName, HttpSession session) {
-		List<Album> tempList = dao.getAlbumList();
+	@RequestMapping(path="NewSong.do",
+			method=RequestMethod.POST)
+	public ModelAndView newSong(Song song, HttpSession session) {
+		dao.addSong(song);
 		ModelAndView mv = new ModelAndView();
-		for (Album album : tempList) {
-			if (album.getAlbumName().equalsIgnoreCase(InputAlbumName.trim())) {
-				session.setAttribute("album", album);
-				mv.setViewName("albumInfo.jsp");
-				mv.addObject("album", album);
-			}
-		}
+		mv.setViewName("songInfo.jsp");
+		mv.addObject("song", song);
+		mv.addObject("album", dao.getSongList());
+		session.setAttribute("song", song);
+		dao.rewriteFiles();
 		return mv;
 	}
-//	@RequestMapping("GetSong.do")
-//	public ModelAndView getSong(@RequestParam("song") String inputSongName, HttpSession session) {
-//		List<Album> tempList = dao.getAlbumList();
+	@RequestMapping(path="RemoveSong.do",
+			method=RequestMethod.POST)
+	public ModelAndView removeSong(Song song, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("song", song);
+		dao.removeSong(song);
+		mv.addObject("album",(Album) dao.getSongList());
+		mv.setViewName("removedSong.jsp");
+		session.setAttribute("song", song);
+		dao.rewriteFiles();
+		return mv;
+	}
+	
+	@RequestMapping(path="GetSongByName.do",
+			params="name",
+			method=RequestMethod.GET)
+	public ModelAndView getSongByName(@RequestParam("name") String inputSongName, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("song", dao.getSongByTitle(inputSongName));						
+		mv.addObject("album", (Album) dao.getSongList());
+		
+		
+		
+		return mv;
+	}
+	@RequestMapping(path="GetSongByArtistName.do",
+			params="name",
+			method=RequestMethod.GET)
+	public ModelAndView getSongByArtistName(@RequestParam("name") String inputSongArtistName, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("song", dao.getSongByArtistTitle(inputSongArtistName));
+		mv.addObject("album", (Album) dao.getSongList());
+		mv.setViewName("songInfo.jsp");			
+		
+		
+		return mv;
+	}
+//	@RequestMapping(path="GetSong.do",
+//			params="name",
+//			method=RequestMethod.GET)
+//	public ModelAndView getSong(@RequestParam("name") String inputSongName, HttpSession session) {
+//		List<Song> tempList = dao.getSongList();
 //		ModelAndView mv = new ModelAndView();
-//		Song song = session.	
-//
-//				mv.setViewName("songInfo.jsp");
+//		if (session.getAttribute("song") == null) {
+//			mv.setViewName("songInfo.jsp");
+//			return mv;
+//		}
+//		for (Song song : tempList) {
+//			if (song.getTitle().equalsIgnoreCase(inputSongName)) {
 //				mv.addObject("song", song);
-//			
-//		
-//		
+//				mv.setViewName("songInfo.jsp");
+//			}			
+//		}
 //		return mv;
 //	}
+	
 }
