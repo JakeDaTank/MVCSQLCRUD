@@ -1,0 +1,29 @@
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr{background-color: #f2f2f2}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+*{
+	font-family: fantasy;
+	color: blue;
+}
+body {
+	background-image: url("http://cdn.wallpapersafari.com/60/9/0oiIrj.png");
+	
+}
+a{
+	font-family: arial;
+	color: violet;
+}

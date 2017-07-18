@@ -1,39 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="style.css" rel="stylesheet">
 <title>SongInfo</title>
 </head>
 <body>
 	<c:choose>
 		<c:when test="${! empty song}">
-			This song was removed:
-			<ul>
-				<li>${song.artistTitle}</li>
-				<li>${song.title}</li>
-			</ul>
+			
+		<h3>Song Removed</h3>
+			<table>
+				<tr>
+					<th>Artist</th>
+					<th>Song Title</th>
+				</tr>
+				<tr>
+					<td><c:out value="${song.artistTitle}" /></td>
+					<td><c:out value="${song.title}" /></td>
+
+				</tr>
+			</table>
 		</c:when>
 		<c:otherwise>
-			<p>No was found to remove</p>
+			<p>No song was found to remove</p>
 		</c:otherwise>
 	</c:choose>
+
 	<br>
-	The current list of songs is: <br>
-	<c:choose>
-		<c:when test="${! empty album}">
-		
-			<ul>
-				<li>${song.artistTitle}</li>
-				<li>${song.title}</li>
-			</ul>
-		</c:when>
-		<c:otherwise>
-			<p>No songs were found</p>
-		</c:otherwise>
-	</c:choose>
-	
+	<h3>Current List of songs</h3>
+	<br>
+	<table>
+		<tr>
+			<th>Artist</th>
+			<th>Song Title</th>
+		</tr>
+		<c:forEach items="${album}" var="song">
+			<tr>
+				<td><c:out value="${song.artistTitle}" /></td>
+				<br>
+				<td><c:out value="${song.title}" /></td>
+
+			</tr>
+		</c:forEach>
+	</table>
+
 </body>
 </html>

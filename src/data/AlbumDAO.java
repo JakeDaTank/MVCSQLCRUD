@@ -9,5 +9,7 @@ public interface AlbumDAO {
 	public List<Song> getSongList();
 	public void rewriteFiles();
 	public void removeSong(Song song);
+	public void removeSongsByArtist(String artistName);
+	public void removeSongByTitle(String artistName);
 	
 }

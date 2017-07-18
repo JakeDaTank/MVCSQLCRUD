@@ -1,6 +1,8 @@
 package data;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,8 +14,10 @@ import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
+@Component
 public class AlbumBuilderDAO implements AlbumDAO {
 
 	private List<Song> songList = new ArrayList<Song>();
@@ -21,30 +25,22 @@ public class AlbumBuilderDAO implements AlbumDAO {
 
 	@Autowired
 	private WebApplicationContext context;
-	
-	private ServletContext sc;
 
 	@PostConstruct
 	public void init() {
 
-//	}
-//
-//	@PostConstruct
-//	public void reader() {
-		//InputStream is = context.getServletContext().getResourceAsStream(orderFile);
-		InputStream is = sc.getResourceAsStream(orderFile);
+		InputStream is = context.getServletContext().getResourceAsStream(orderFile);
 		BufferedReader bufIn = null;
 		try (BufferedReader buf = new BufferedReader(new InputStreamReader(is))) {
 			String line;
 
 			while ((line = buf.readLine()) != null) {
 				String[] infoArr = line.split(", ");
-				String songName = infoArr[0];
-				String artistName = infoArr[1];
+				String artistName = infoArr[0];
+				String songName = infoArr[1];
 				Song song = new Song(songName, artistName);
 				songList.add(song);
 			}
-
 
 		} catch (IOException e) {
 			System.err.println(e);
@@ -59,21 +55,24 @@ public class AlbumBuilderDAO implements AlbumDAO {
 		}
 	}
 
-	
-
 	@Override
-    public void rewriteFiles() {
-		String path = context.getServletContext().getRealPath("/WEB-INF/music.csv");
-        try {
-            PrintWriter writer = new PrintWriter(path, "UTF-8");
-            for (int i = 0; i < songList.size(); i++) {
-                writer.println(songList.get(i).getArtistTitle() + ", " + songList.get(i).getTitle());
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
+	public void rewriteFiles() {
+		String path = context.getServletContext().getRealPath(orderFile);
+
+		try {
+			FileWriter writer = new FileWriter(path);
+			BufferedWriter bf = new BufferedWriter(writer);
+			for (int i = 0; i < songList.size(); i++) {
+				bf.write(songList.get(i).getArtistTitle() + ", " + songList.get(i).getTitle());
+			}
+			writer.close();
+			bf.flush();
+			bf.close();
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		
+	}
 
 	public void setSongList(List<Song> songList) {
 		this.songList = songList;
@@ -82,6 +81,7 @@ public class AlbumBuilderDAO implements AlbumDAO {
 	@Override
 	public void addSong(Song song) {
 		songList.add(song);
+		rewriteFiles();
 	}
 
 	@Override
@@ -114,5 +114,28 @@ public class AlbumBuilderDAO implements AlbumDAO {
 	@Override
 	public void removeSong(Song song) {
 		songList.remove(song);
+		rewriteFiles();
+	}
+
+	@Override
+	public void removeSongsByArtist(String artistName) {
+		for (Song song : songList) {
+			if (artistName.equalsIgnoreCase(song.getArtistTitle())) {
+				songList.remove(song);
+			}
+		}
+		rewriteFiles();
+		return;
+	}
+
+	@Override
+	public void removeSongByTitle(String songTitle) {
+		for (Song song : songList) {
+			if (songTitle.equalsIgnoreCase(song.getTitle())) {
+				songList.remove(song);
+
+			}
+		}
+		rewriteFiles();
 	}
 }

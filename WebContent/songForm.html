@@ -2,18 +2,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="style.css" rel="stylesheet">
 <title>Song Info</title>
 </head>
 <body>
 	<h3>Song info</h3>
 	<form action="GetSongByName.do" method="GET">
 		Search Song By Title Name:
-		<input type="text" name="name"/> 
+		<input type="text" name="name" value="title*"/> 
 		<input type="submit" value="Submit" />		
 	</form> <br>
 	<form action="GetSongByArtistName.do" method="GET">
 		Get song by Artist Name:
-		<input type="text" name="name"/> 
+		<input type="text" name="name" value="name*"/> 
 		<input type="submit" value="Submit" />
 	</form>
 </body>
