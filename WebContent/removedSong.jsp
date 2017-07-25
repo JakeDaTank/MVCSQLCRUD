@@ -11,15 +11,15 @@
 <body>
 	<c:choose>
 		<c:when test="${! empty song}">
-			
-		<h3>Song Removed</h3>
+
+			<h3>Song Removed</h3>
 			<table>
 				<tr>
 					<th>Artist</th>
 					<th>Song Title</th>
 				</tr>
 				<tr>
-					<td><c:out value="${song.artistTitle}" /></td>
+					<td><c:out value="${song.title}" /></td>
 					<td><c:out value="${song.title}" /></td>
 
 				</tr>
@@ -40,13 +40,18 @@
 		</tr>
 		<c:forEach items="${album}" var="song">
 			<tr>
-				<td><c:out value="${song.artistTitle}" /></td>
+				<td><c:out value="${song.title}" /></td>
 				<br>
 				<td><c:out value="${song.title}" /></td>
 
 			</tr>
 		</c:forEach>
 	</table>
+	Add Song
+	<a href="addSong.html">here</a>
+	<br> Remove a song:
+	<a href="songRemoveForm.html">here</a>
+	<br>
 
 </body>
 </html>

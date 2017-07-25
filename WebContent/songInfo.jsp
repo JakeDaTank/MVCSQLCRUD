@@ -18,27 +18,31 @@
 					<th>Artist</th>
 					<th>Song Title</th>
 				</tr>
-				<tr>
-					<td><c:out value="${song.artistTitle}" /></td>
-					<td><c:out value="${song.title}" /></td>
+				<c:forEach items="${songs}" var="song">
+					<tr>
+						<td><c:out value="${name}" /></td>
+						<br>
+						<td><c:out value="${song.title}" /></td>
 
-				</tr>
+					</tr>
+				</c:forEach>
 			</table>
 		</c:when>
 		<c:otherwise>
 			<p>No new song was added</p>
 		</c:otherwise>
 	</c:choose>
-	<br> <h3>Current List of songs</h3>
+	<br>
+	<h3>Current List of songs</h3>
 	<br>
 	<table>
 		<tr>
-			<th>Artist</th>
+			<th>Album ID</th>
 			<th>Song Title</th>
 		</tr>
-		<c:forEach items="${album}" var="song">
+		<c:forEach items="${songs}" var="song">
 			<tr>
-				<td><c:out value="${song.artistTitle}" /></td>
+				<td><c:out value="${song.albumId}" /></td>
 				<br>
 				<td><c:out value="${song.title}" /></td>
 
@@ -46,5 +50,10 @@
 		</c:forEach>
 	</table>
 
+	Add Song
+	<a href="addSong.html">here</a>
+	<br> Remove a song:
+	<a href="songRemoveForm.html">here</a>
+	<br>
 </body>
 </html>

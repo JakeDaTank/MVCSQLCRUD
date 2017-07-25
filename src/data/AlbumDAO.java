@@ -4,12 +4,13 @@ import java.util.List;
 
 public interface AlbumDAO {
 	public Song getSongByTitle(String name);
-	public Song getSongByArtistTitle(String artistTitle);
+	public List<Song> getSongsByArtistTitle(String artistTitle);
 	public void addSong(Song song);
 	public List<Song> getSongList();
 	public void rewriteFiles();
 	public void removeSong(Song song);
-	public void removeSongsByArtist(String artistName);
 	public void removeSongByTitle(String artistName);
+	public int getAlbumIDByTitle(String name);
+	
 	
 }

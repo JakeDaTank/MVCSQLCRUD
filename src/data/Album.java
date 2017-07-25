@@ -1,17 +1,18 @@
 package data;
 
-public class Song {
-	int id, albumId;
+public class Album {
+	
+	int id, artistId;
 	String title;
 	
-	public Song(int id, int albumId, String title) {
+	public Album() {
+		
+	}
+	public Album(int id, int artistId, String title) {
 		super();
 		this.id = id;
-		this.albumId = albumId;
+		this.artistId = artistId;
 		this.title = title;
-	}
-	public Song() {
-		
 	}
 	public int getId() {
 		return id;
@@ -19,11 +20,11 @@ public class Song {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getAlbumId() {
-		return albumId;
+	public int getArtistId() {
+		return artistId;
 	}
-	public void setAlbumId(int albumId) {
-		this.albumId = albumId;
+	public void setArtistId(int artistId) {
+		this.artistId = artistId;
 	}
 	public String getTitle() {
 		return title;
@@ -31,5 +32,5 @@ public class Song {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 }
